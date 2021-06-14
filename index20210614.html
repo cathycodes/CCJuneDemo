@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html>
+<title>NYC Construction Codes</title>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">  
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link rel="icon" type="image/png"  href="logo.png">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="assets/css/keen-dashboards.css" />
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<style>
+
+#codeContentDiv {
+display: none;
+margin-top:60px;
+}
+
+div[id^='text'] {
+	display: none;
+	overflow-y:auto
+}
+hr.dob{
+border: .5px solid black !important;
+}
+
+body.application {
+padding: 60px 0px 0px; 
+}
+	
+a:hover:not(.myTreeView) {
+background-color:  #F0F0F0;
+
+}
+a.strikeit:any-link {
+text-decoration: line-through ;
+}
+
+
+	.logo {
+		background-image: url('https://nycdob.github.io/EssentialActiveConstruction/images/dob_logo_white.png');
+		background-repeat: no-repeat;
+		background-position: center;
+		float: right;
+		background-size: 70px;
+		height: 50px;
+		width: 70px;
+	}
+
+	#codeList {
+		overflow-y: auto;
+	}
+
+	#codeContainer {
+		overflow-y: auto;
+	}
+
+	select {
+		width: 100%;
+	}
+
+	@media only screen and (max-width: 700px) {
+		#yearCol {
+			margin-top: 100px;
+		}
+
+		#genAdmin2014 {
+			margin-top: 100px;
+		}
+	}
+
+	#genAdmin2014Tree {
+		height: 100%;
+		font-size: 12px;
+		margin-left: 5px;
+	}
+
+	#myTreeView {
+		list-style-type: none;
+	}
+
+
+	.chart-wrapper#treelist {
+		background-color:#4e5b96;
+		color: white;
+	}
+
+
+	
+	#myTreeView {
+		margin: 0;
+		padding: 5px;
+
+	}
+
+	.expandable {
+		cursor: pointer;
+		-webkit-user-select: none;
+		/* Safari 3.1+ */
+		-moz-user-select: none;
+		/* Firefox 2+ */
+		-ms-user-select: none;
+		/* IE 10+ */
+		user-select: none;
+	}
+
+	.expandable::before {
+		content: "\25B6";
+
+		display: inline-block;
+		margin-right: 6px;
+		
+	}
+
+	.expanded::before {
+		-ms-transform: rotate(90deg);
+		/* IE 9 */
+		-webkit-transform: rotate(90deg);
+		/* Safari */
+		'
+transform: rotate(90deg);
+	}
+
+	.non-expandable {
+		display: none;
+	}
+
+	.active {
+		display: block;
+	}
+
+
+
+
+
+/*
+	zzz#row:hover {
+		cursor: pointer;
+		background-color: #f5f5f5;
+	}
+*/
+
+
+
+	#treelist {
+		overflow-y: auto;
+	}
+
+	.expandable a {
+		text-decoration: none !important;
+
+		color: white !important;
+	}
+
+	.non-expandable a {
+		text-decoration: none !important;
+
+		color: white !important;
+	}
+
+	#searchForm {
+		overflow: hidden;
+	float: right;
+	}
+	.commentarySwitch {
+		overflow: hidden;
+		font-size: 12px;
+		
+		color: #0571b0;
+		font-weight:700;
+	}
+	.bulletinsSwitch {
+		overflow: hidden;
+		font-size: 12px;
+		
+		color: #118ab2;
+		font-weight:700;		
+	}
+
+	.legHistorySwitch {
+		overflow: hidden;
+		font-size: 12px;
+		
+		color: #4e5b96;  
+		font-weight:700;
+	}
+
+	.deptRulesSwitch {
+		overflow: hidden;
+		font-size: 12px;
+		
+		color: #06d6a0;
+		font-weight:700;
+	}
+
+	< !-- .input-sm {
+		-->< !-- height: 25px;
+		-->< !--
+	}
+
+	-->input[type=search] {
+		font-size: 14px;
+	}
+
+	button,
+	html input[type=button],
+	input[type=reset],
+	input[type=submit] {
+		height: 25px;
+	}
+
+	button,
+	input,
+	select,
+	textarea {
+		line-height: 0px;
+	}
+
+
+
+	zzzORGmark {
+		background: yellow;
+		color: black;
+		padding: 0;
+	}
+	zzzORGmark.current {
+		background: orange;
+	}
+
+
+
+mark {
+  background: yellow;
+}
+
+mark.current {
+  background: orange;
+}
+
+	table,
+	th,
+	td {
+		border: 1px solid black;
+		padding: 5px;
+	}
+
+	.bulletin {
+		display: none;
+		color: #118ab2;
+	}
+
+	.commentary {
+		display: none;
+		color: #000000;
+		background-color: #b0e2ff;
+		padding: 5px;
+	}
+
+	.legHistory {
+		display: none;
+		color: #4e5b96  ;  /*#ef476f;*/
+	}
+
+	.rules {
+		display: none;
+		color: #06d6a0;
+	}
+
+	
+	img {
+		width: 50%;
+		}
+		
+	img:not(.zoomedImage) {
+		cursor: zoom-in;
+		}
+	img:zoomedImage {
+		cursor: pointer;
+		object-fit: contain;
+		
+	}
+	.modal-container {
+	  position: fixed;
+	  left: 30;
+	  top: 30; 
+	  z-index: 1;
+	  display: flex;
+	  width: 100vw;
+	  height: 90vh; 
+	  padding: 30px;
+	  background-color: rgba(0, 0, 0, 0.5);
+	  pointer-events: none; 
+	  opacity: 0;
+	  
+		}
+
+	.modal-container.is-open { 
+	  pointer-events: all; 
+	  opacity: 1;
+	}
+
+
+	.modal-content {
+	border: 3px solid #4e5b96;
+	  width: 100%; 
+	  height: 100%; 
+	  max-width: 95%; 
+	  max-height: 95%	; 
+	  background-color: #fff; 
+	}
+
+	#close {
+	 position: absolute;
+	 right: 0;
+	 top: 0;
+	 width: 30px;
+	 height: 30px;
+	}
+
+ 
+	span#row *:hover, li#row a:hover {
+		color: black !important;
+		background-color:  #F0F0F0 !important;
+
+	}
+	
+@media only screen and (max-width: 700px) {		
+
+body.application{
+		padding: 20px 0px 0px; 
+
+}
+
+}	
+</style>
+
+
+<div class="modal-container"> 
+  <div class="modal-content">
+    <button id="close">X</button>
+	<img class="zoomedImage" 	
+			style=" 
+				object-fit: contain;
+				max-width:100%;
+				max-height:100%;" 
+			src="images\Figure_S101_1_1.png">
+  </div>
+</div>
+
+
+
+
+<body class="" style="">
+	
+		<div class="navbar navbar-fixed-top" role="navigation" style="color:white;background-color:RGB(40,56,124);">
+			<a class="logo" href="https://www1.nyc.gov/site/buildings/index.page" target="_blank"> </a>
+			<div class="nav navbar-nav"
+				style="margin-left:15px;margin-top:7px;font-size:28px;font-weight:bold;text-align:center;" >
+				NEW YORK CITY CONSTRUCTION CODES
+			</div>
+		</div>
+		
+<div id="codesmain" style="margin-top:60px;">	
+		<!-- SECTION BEGIN "container-fluid"  -->
+		<div id="yearCol" class="col-sm-2">
+			<div class="chart-wrapper" >
+				<div class="chart-title">
+					CODE YEAR 2014
+				</div>
+				<!--
+				<select class="bootstrap-select" id="codeYear">
+					<option value="1" selected="selected">Current</option>
+					<option value="2">2008</option>
+					<option value="3">1968</option>
+					<option value="4">1938</option>
+
+				</select>
+				-->
+			</div>
+		</div>
+	<div class="col-sm-10" id="codeCol"> <!--  SECTION BEGIN  "codeCol" LISTS ALL BOOKS -->
+		<div class="chart-wrapper" style="border: 1px;">  <!--  PER DANIELLE'S REQUEST, remove unused placeholders  -->
+				<div class="chart-title">CODE BOOKS	</div>
+				
+				<div class="" id="codeList" style="height:80vh">
+					<div class="list-group" id="codeCurrent">
+							<a href="#" id="genAdmin2014List"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC General Admin. Provisions 2014</h5>
+							</div>
+							</a>
+							<a href="#" id="bldgCode2014List"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Building Code 2014</h5>
+							<small class="text-muted">adopts the IBC 2009 with amendments</small>
+							</div>
+							</a>
+							<a href="#" id="mechCode2014List" 
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Mechanical Code 2014</h5>
+							<small class="text-muted">adopts the IMC 2009 with amendments</small>
+							</div>
+							</a>
+							<a href="#" id="plumbCode2014List" 
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Plumbing Code 2014</h5>
+							<small class="text-muted">adopts the IPC 2009 with amendments</small>
+							</div>
+							</a>
+							<a href="#"  id="fuelCode2014List"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Fuel Gas Code 2014</h5>
+							<small class="text-muted">adopts the IFGC 2009 with amendments</small>
+							</div>
+							</a>
+							
+							<div style="display:none">  <!--  PER DANIELLE'S REQUEST, remove unused placeholders  -->
+									<div class="chart-notes">ADDITIONAL NYC CODES</div>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">NYC Fire Code 2014</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">NYC Energy Code 2016 [PDF]</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">NYC Energy Code 2014</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">NYC Energy Code 2011 [PDF]</h5>
+									</div>
+									</a>
+									<div class="chart-notes">ZONING</div>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">NYC Zoning Resolution</h5>
+									</div>
+									</a>
+									<div class="chart-notes">RULES & REGULATIONS</div>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Title 1 - Department of Buildings</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Title 2 - Board of Standards and Appeals</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Title 3 - Fire Department</h5>
+									</div>
+									</a>
+									<div class="chart-notes">ADDITIONAL RESOURCES</div>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Multiple Dwelling Law</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">§27 - Housing Maintenance Code</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">§27 - Electrical Code</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">2010 ADA Standards</h5>
+									</div>
+									</a>
+									<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+									<h5 class="mb-1">Fair Housing Act Design Manual [PDF]</h5>
+									</div>
+									</a>
+							</div>
+					</div>
+					
+					<div style='display: none;' class="list-group" id="code2008">
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC General Admin. Provisions 2008</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Building Code 2008</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Mechanical Code 2008</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Plumbing Code 2008</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Fuel Gas Code 2008</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ADDITIONAL NYC CODES</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Fire Code 2014</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2016 [PDF]</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2014</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2011 [PDF]</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ZONING</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Zoning Resolution</h5>
+							</div>
+							</a>
+							<div class="chart-notes">RULES & REGULATIONS</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 1 - Department of Buildings</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 2 - Board of Standards and Appeals</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 3 - Fire Department</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ADDITIONAL RESOURCES</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Multiple Dwelling Law</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">§27 - Housing Maintenance Code</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">§27 - Electrical Code</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">2010 ADA Standards</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Fair Housing Act Design Manual [PDF]</h5>
+							</div>
+							</a>
+					</div>
+					<div style='display: none;' class="list-group" id="code1968">
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC 1968 Code (Vol I)</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC 1968 Code (Vol II) [PDF]</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ADDITIONAL NYC CODES</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Fire Code 2014</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2016 [PDF]</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2014</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2011 [PDF]</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ZONING</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Zoning Resolution</h5>
+							</div>
+							</a>
+							<div class="chart-notes">RULES & REGULATIONS</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 1 - Department of Buildings</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 2 - Board of Standards and Appeals</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 3 - Fire Department</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ADDITIONAL RESOURCES</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Multiple Dwelling Law</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">§27 - Housing Maintenance Code</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">§27 - Electrical Code</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">2010 ADA Standards</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Fair Housing Act Design Manual [PDF]</h5>
+							</div>
+							</a>
+					</div>
+					<div style='display: none;' class="list-group" id="code1938">
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC 1938 Code [PDF]</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ADDITIONAL NYC CODES</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Fire Code 2014</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2016 [PDF]</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2014</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Energy Code 2011 [PDF]</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ZONING</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">NYC Zoning Resolution</h5>
+							</div>
+							</a>
+							<div class="chart-notes">RULES & REGULATIONS</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 1 - Department of Buildings</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 2 - Board of Standards and Appeals</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Title 3 - Fire Department</h5>
+							</div>
+							</a>
+							<div class="chart-notes">ADDITIONAL RESOURCES</div>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Multiple Dwelling Law</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">§27 - Housing Maintenance Code</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">§27 - Electrical Code</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">2010 ADA Standards</h5>
+							</div>
+							</a>
+							<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">Fair Housing Act Design Manual [PDF]</h5>
+							</div>
+							</a>
+					</div>
+				</div>
+		</div>
+	</div> <!--  SECTION END  "codeCol" -->
+</div>
+
+
+<div id="codeContentDiv" class="" style="height:86vh" >  <!--------------------  NEW NEW NEW NEW NEW ****** -->
+		<div class="col-sm-4 treeColumn" >	<!--   tree column  -->
+				<div style="display: none;" id="treegenAdmin2014" >
+					<!-- SECTION END "genAdmin2014"  -->
+					<div class="chart-wrapper" id="treelist" style="height:86vh">
+						<ul id="myTreeView">
+								<span class="backCodes" style='cursor:pointer'><span style='font-size:20px'>&#8701;</span>&nbsp;&nbsp;Back to Codes</span> 
+								<li><span><u>NYC General Admin. Provisions 2014</u></span></li>
+									<div code-include-html="t1_admin.html"></div>
+									<div code-include-html="t2_admin.html"></div>
+									<div code-include-html="t3_admin.html"></div>
+									<div code-include-html="t4_admin.html"></div>
+									<div code-include-html="t5_admin.html"></div>
+						</ul>
+					</div>
+				</div> <!-- SECTION END "genAdmin2014"  -->
+
+				<div style="display: none;" id="treebldgCode2014">
+					<!-- SECTION END "genAdmin2014"  -->
+					<div class="chart-wrapper" id="treelist" style="height:86vh">
+						<ul id="myTreeView">
+								<span class="backCodes" style='cursor:pointer'><span style='font-size:20px'>&#8701;</span>&nbsp;&nbsp;Back to Codes</span> 
+								<li><span><u>NYC Building Code 2014</u></span></li>
+									<div code-include-html="t1_build.html"></div>
+									<div code-include-html="t2_build.html"></div>
+									<div code-include-html="t3_build.html"></div>
+									<div code-include-html="t4_build.html"></div>
+									<div code-include-html="t5_build.html"></div>
+									<div code-include-html="t6_build.html"></div>
+									<div code-include-html="t7_build.html"></div>
+									<div code-include-html="t8_build.html"></div>
+									<div code-include-html="t9_build.html"></div>
+									<div code-include-html="t10_build.html"></div>
+									<div code-include-html="t11_build.html"></div>
+									<div code-include-html="t12_build.html"></div>
+									<div code-include-html="t13_build.html"></div>
+									<div code-include-html="t14_build.html"></div>
+									<div code-include-html="t15_build.html"></div>
+									<div code-include-html="t16_build.html"></div>
+									<div code-include-html="t17_build.html"></div>
+									<div code-include-html="t18_build.html"></div>
+									<div code-include-html="t19_build.html"></div>
+									<div code-include-html="t20_build.html"></div>
+									<div code-include-html="t21_build.html"></div>
+									<div code-include-html="t22_build.html"></div>
+									<div code-include-html="t23_build.html"></div>
+									<div code-include-html="t24_build.html"></div>
+									<div code-include-html="t25_build.html"></div>
+									<div code-include-html="t26_build.html"></div>
+									<div code-include-html="t27_build.html"></div>
+									<div code-include-html="t28_build.html"></div>
+									<div code-include-html="t29_build.html"></div>
+									<div code-include-html="t30_build.html"></div>
+									<div code-include-html="t31_build.html"></div>
+									<div code-include-html="t32_build.html"></div>
+									<div code-include-html="t33_build.html"></div>
+									<div code-include-html="t34_build.html"></div>
+									<div code-include-html="t35_build.html"></div>
+									<div code-include-html="ta_build.html"></div>
+									<div code-include-html="tb_build.html"></div>
+									<div code-include-html="tc_build.html"></div>
+									<div code-include-html="td_build.html"></div>
+									<div code-include-html="te_build.html"></div>
+									<div code-include-html="tf_build.html"></div>
+									<div code-include-html="tg_build.html"></div>
+									<div code-include-html="th_build.html"></div>
+									<div code-include-html="ti_build.html"></div>
+									<div code-include-html="tj_build.html"></div>
+									<div code-include-html="tk_build.html"></div>
+									<div code-include-html="tl_build.html"></div>
+									<div code-include-html="tm_build.html"></div>
+									<div code-include-html="tn_build.html"></div>
+									<div code-include-html="to_build.html"></div>
+									<div code-include-html="tp_build.html"></div>
+									<div code-include-html="tq_build.html"></div>
+									<div code-include-html="tr_build.html"></div>
+									<div code-include-html="ts_build.html"></div>
+						</ul>
+					</div>
+				</div> <!-- SECTION END "genAdmin2014"  -->
+
+
+
+
+				<div style="display: none;" id="treemechCode2014">
+					<!--  SECTION BEGIN  "mechCode2014" -->
+					<div class="chart-wrapper" id="treelist" style="height:86vh">
+						<ul id="myTreeView">
+							<span class="backCodes" style='cursor:pointer'><span style='font-size:20px'>&#8701;</span>&nbsp;&nbsp;Back to Codes</span>
+								<li><span><u>NYC Mechanical Code 2014</u></span></li>
+								<div code-include-html="t1_mech.html"></div>
+								<div code-include-html="t2_mech.html"></div>
+								<div code-include-html="t3_mech.html"></div>
+								<div code-include-html="t4_mech.html"></div>
+								<div code-include-html="t5_mech.html"></div>
+								<div code-include-html="t6_mech.html"></div>
+								<div code-include-html="t7_mech.html"></div>
+								<div code-include-html="t8_mech.html"></div>
+								<div code-include-html="t9_mech.html"></div>
+								<div code-include-html="t10_mech.html"></div>
+								<div code-include-html="t11_mech.html"></div>
+								<div code-include-html="t12_mech.html"></div>
+								<div code-include-html="t13_mech.html"></div>
+								<div code-include-html="t14_mech.html"></div>
+								<div code-include-html="t15_mech.html"></div>
+								<div code-include-html="ta_mech.html"></div>
+								<div code-include-html="tb_mech.html"></div>
+						</ul>
+					</div>
+				</div> <!--  SECTION END  "mechCode2014" -->
+
+				<div style="display: none;" id="treeplumbCode2014" >
+					<!--  SECTION BEGIN  "plumbCode2014" -->
+					<div class="chart-wrapper" id="treelist" style="height:86vh">
+						<ul id="myTreeView">
+							<span class="backCodes" style='cursor:pointer'><span style='font-size:20px'>&#8701;</span>&nbsp;&nbsp;Back to Codes</span>
+								<li><span><u>NYC Plumbing Code 2014</u></span></li>
+								<div code-include-html="t1_plumb.html"></div>
+								<div code-include-html="t2_plumb.html"></div>
+								<div code-include-html="t3_plumb.html"></div>
+								<div code-include-html="t4_plumb.html"></div>
+								<div code-include-html="t5_plumb.html"></div>
+								<div code-include-html="t6_plumb.html"></div>
+								<div code-include-html="t7_plumb.html"></div>
+								<div code-include-html="t8_plumb.html"></div>
+								<div code-include-html="t9_plumb.html"></div>
+								<div code-include-html="t10_plumb.html"></div>
+								<div code-include-html="t11_plumb.html"></div>
+								<div code-include-html="t12_plumb.html"></div>
+								<div code-include-html="t13_plumb.html"></div>
+								<div code-include-html="ta_plumb.html"></div>
+								<div code-include-html="tb_plumb.html"></div>
+								<div code-include-html="tc_plumb.html"></div>
+								<div code-include-html="td_plumb.html"></div>
+								<div code-include-html="te_plumb.html"></div>
+								<div code-include-html="tf_plumb.html"></div>
+								<div code-include-html="tg_plumb.html"></div>
+						</ul>
+					</div>
+				</div> <!--  SECTION END  "plumbCode2014" -->
+
+				<div style="display: none;" id="treefuelCode2014" >
+					<!--  SECTION BEGIN  "fuelCode2014" -->
+					<div class="chart-wrapper" id="treelist" style="height:86vh">
+						<ul id="myTreeView">
+							<span class="backCodes" style='cursor:pointer'><span
+									style='font-size:20px'>&#8701;</span>&nbsp;&nbsp;Back to Codes</span>
+									<li><span><u>NYC Fuel Gas Code 2014</u></span></li>									
+									<div code-include-html="t1_fuel.html"></div>
+									<div code-include-html="t2_fuel.html"></div>
+									<div code-include-html="t3_fuel.html"></div>
+									<div code-include-html="t4_fuel.html"></div>
+									<div code-include-html="t5_fuel.html"></div>
+									<div code-include-html="t6_fuel.html"></div>
+									<div code-include-html="t7_fuel.html"></div>
+									<div code-include-html="t8_fuel.html"></div>
+									<div code-include-html="ta_fuel.html"></div>
+									<div code-include-html="tb_fuel.html"></div>
+									<div code-include-html="tc_fuel.html"></div>
+									<div code-include-html="td_fuel.html"></div>
+									<div code-include-html="te_fuel.html"></div>
+									<div code-include-html="tf_fuel.html"></div>
+									<div code-include-html="tg_fuel.html"></div>
+						</ul>
+					</div>
+				</div> <!--  SECTION END  "fuelCode2014" -->
+		</div>	
+
+		<div class="col-sm-8" style="border: 1px solid #e8e8e8;">
+			<div class="row" style="font-weight:700;font-size:larger;padding:3px;border-bottom:.5px solid #e4dfdf;">
+			
+				<div class="col-sm-1 backCodes" title="Home" style="cursor:pointer;">
+					<i class="backCodes glyphicon glyphicon-home"></i>
+				</div>		
+			
+				<div class="codebookheading col-sm-10 text-center"></div> 
+				 
+				<div class="col-sm-1 pull-right goback" style="cursor:pointer;" title="Back">
+					<i class="glyphicon glyphicon-arrow-left"></i>
+				</div>
+				
+			</div>
+	
+	
+	
+		
+		
+		<div class="row" style="padding: 10px 0px; border-bottom: .5px solid #e4dfdf">  <!--  code book flags  -->
+				<div class="col-sm-7">
+					<div class='legHistorySwitch col-sm-4'>Legislative History:&nbsp;<input class="toggle-legHistory" type="checkbox"
+							data-toggle="toggle" data-size="mini"></div>
+					<div class='bulletinsSwitch col-sm-4'>Buildings Bulletins:&nbsp;<input class="toggle-bulletin" type="checkbox"
+							data-toggle="toggle" data-size="mini"></div>
+					<div class='deptRulesSwitch col-sm-4'>Department Rules:&nbsp;<input class="toggle-rules" type="checkbox"
+							data-toggle="toggle" data-size="mini"></div>
+				</div>			
+				
+				<div class="col-sm-5" id="">
+					<input id="searchString" type="search" size="8em;" placeholder="Search Text">
+					<button title="Go" data-search="go">&#x1f50d;</button>
+					<button title="Next" data-search="next">&darr;</button>
+					<button title="Previous" data-search="prev">&uarr;</button>
+					<button title="Clear" data-search="clear">✖</button>
+					<span class="numresults smaller"></span>
+				</div>
+		</div>
+
+		<div class="row" id="chaptercontainer" style="height: 75vh;padding-left:5px;overflow-y: auto;">  
+				<!-- <div id="codegenAdmin2014" style="display:none;overflow-y:auto"> <!-- SECTION BEGIN "admin" INSERT CHAPTER HTML-->  
+				<div id="textgenAdmin2014">
+						<div code-include-html="ch1_admin.html"></div>
+						<div code-include-html="ch2_admin.html"></div>
+						<div code-include-html="ch3_admin.html"></div>
+						<div code-include-html="ch4_admin.html"></div>
+						<div code-include-html="ch5_admin.html"></div>										
+				</div> <!-- SECTION END "code" -->		
+				<div id="textbldgCode2014"> <!-- SECTION BEGIN "bldg" INSERT CHAPTER HTML-->
+						<div code-include-html="ch1_build.html"></div>
+						<div code-include-html="ch2_build.html"></div>
+						<div code-include-html="ch3_build.html"></div>
+						<div code-include-html="ch4_build.html"></div>
+						<div code-include-html="ch5_build.html"></div>
+						<div code-include-html="ch6_build.html"></div>
+						<div code-include-html="ch7_build.html"></div>
+						<div code-include-html="ch8_build.html"></div>
+						<div code-include-html="ch9_build.html"></div>
+						<div code-include-html="ch10_build.html"></div>
+						<div code-include-html="ch11_build.html"></div>
+						<div code-include-html="ch12_build.html"></div>
+						<div code-include-html="ch13_build.html"></div>
+						<div code-include-html="ch14_build.html"></div>
+						<div code-include-html="ch15_build.html"></div>
+						<div code-include-html="ch16_build.html"></div>
+						<div code-include-html="ch17_build.html"></div>
+						<div code-include-html="ch18_build.html"></div>
+						<div code-include-html="ch19_build.html"></div>
+						<div code-include-html="ch20_build.html"></div>
+						<div code-include-html="ch21_build.html"></div>
+						<div code-include-html="ch22_build.html"></div>
+						<div code-include-html="ch23_build.html"></div>
+						<div code-include-html="ch24_build.html"></div>
+						<div code-include-html="ch25_build.html"></div>
+						<div code-include-html="ch26_build.html"></div>
+						<div code-include-html="ch27_build.html"></div>
+						<div code-include-html="ch28_build.html"></div>
+						<div code-include-html="ch29_build.html"></div>
+						<div code-include-html="ch30_build.html"></div>
+						<div code-include-html="ch31_build.html"></div>
+						<div code-include-html="ch32_build.html"></div>
+						<div code-include-html="ch33_build.html"></div>
+						<div code-include-html="ch34_build.html"></div>
+						<div code-include-html="ch35_build.html"></div>
+						<div code-include-html="appA_build.html"></div>
+						<div code-include-html="appB_build.html"></div>
+						<div code-include-html="appC_build.html"></div>
+						<div code-include-html="appD_build.html"></div>
+						<div code-include-html="appE_build.html"></div>
+						<div code-include-html="appF_build.html"></div>
+						<div code-include-html="appG_build.html"></div>
+						<div code-include-html="appH_build.html"></div>
+						<div code-include-html="appI_build.html"></div>
+						<div code-include-html="appJ_build.html"></div>
+						<div code-include-html="appK_build.html"></div>
+						<div code-include-html="appL_build.html"></div>
+						<div code-include-html="appM_build.html"></div>
+						<div code-include-html="appN_build.html"></div>
+						<div code-include-html="appO_build.html"></div>
+						<div code-include-html="appP_build.html"></div>
+						<div code-include-html="appQ_build.html"></div>
+						<div code-include-html="appR_build.html"></div>
+						<div code-include-html="appS_build.html"></div>		
+				</div> <!-- SECTION END "bldg" -->												
+				<div id="textmechCode2014"> <!-- SECTION BEGIN "mech" INSERT CHAPTER HTML-->
+						<div code-include-html="ch1_mech.html"></div>
+						<div code-include-html="ch2_mech.html"></div>
+						<div code-include-html="ch3_mech.html"></div>
+						<div code-include-html="ch4_mech.html"></div>
+						<div code-include-html="ch5_mech.html"></div>
+						<div code-include-html="ch6_mech.html"></div>
+						<div code-include-html="ch7_mech.html"></div>
+						<div code-include-html="ch8_mech.html"></div>
+						<div code-include-html="ch9_mech.html"></div>
+						<div code-include-html="ch10_mech.html"></div>
+						<div code-include-html="ch11_mech.html"></div>
+						<div code-include-html="ch12_mech.html"></div>
+						<div code-include-html="ch13_mech.html"></div>
+						<div code-include-html="ch14_mech.html"></div>
+						<div code-include-html="ch15_mech.html"></div>
+						<div code-include-html="appA_mech.html"></div>
+						<div code-include-html="appB_mech.html"></div>
+				</div> <!-- SECTION END "mech" -->																		
+				<div id="textplumbCode2014"> <!-- SECTION BEGIN "plumb" INSERT CHAPTER HTML-->
+						<div code-include-html="ch1_plumb.html"></div>
+						<div code-include-html="ch2_plumb.html"></div>
+						<div code-include-html="ch3_plumb.html"></div>
+						<div code-include-html="ch4_plumb.html"></div>
+						<div code-include-html="ch5_plumb.html"></div>
+						<div code-include-html="ch6_plumb.html"></div>
+						<div code-include-html="ch7_plumb.html"></div>
+						<div code-include-html="ch8_plumb.html"></div>
+						<div code-include-html="ch9_plumb.html"></div>
+						<div code-include-html="ch10_plumb.html"></div>
+						<div code-include-html="ch11_plumb.html"></div>
+						<div code-include-html="ch12_plumb.html"></div>
+						<div code-include-html="ch13_plumb.html"></div>
+						<div code-include-html="appA_plumb.html"></div>
+						<div code-include-html="appB_plumb.html"></div>
+						<div code-include-html="appC_plumb.html"></div>
+						<div code-include-html="appD_plumb.html"></div>
+						<div code-include-html="appE_plumb.html"></div>
+						<div code-include-html="appF_plumb.html"></div>
+						<div code-include-html="appG_plumb.html"></div>
+				</div> <!-- SECTION END "plumb" -->												
+				<div id="textfuelCode2014"> <!-- SECTION BEGIN "fuel" INSERT CHAPTER HTML-->
+						<div code-include-html="ch1_fuel.html"></div>
+						<div code-include-html="ch2_fuel.html"></div>
+						<div code-include-html="ch3_fuel.html"></div>
+						<div code-include-html="ch4_fuel.html"></div>
+						<div code-include-html="ch5_fuel.html"></div>
+						<div code-include-html="ch6_fuel.html"></div>
+						<div code-include-html="ch7_fuel.html"></div>
+						<div code-include-html="ch8_fuel.html"></div>
+						<div code-include-html="appA_fuel.html"></div>
+						<div code-include-html="appB_fuel.html"></div>
+						<div code-include-html="appC_fuel.html"></div>
+						<div code-include-html="appD_fuel.html"></div>
+						<div code-include-html="appE_fuel.html"></div>
+						<div code-include-html="appF_fuel.html"></div>
+						<div code-include-html="appG_fuel.html"></div>
+				</div> <!-- SECTION END "fuel" -->	
+		</div>
+		</div>
+	</div>	
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/lib/keen-js/dist/keen.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.es6.js"></script>
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+
+
+
+let promises=[];
+document.querySelectorAll("div[code-include-html]").forEach(  (e,ndx)=> {
+let _file=e.getAttribute('code-include-html');  
+promises.push(new Promise( (y,n)  =>  {
+let xhttp = new XMLHttpRequest();
+xhttp.open("GET", _file, true);
+xhttp.send();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4) { 
+if (this.status == 200) { 
+$( this.response ).insertBefore( e );
+(e).remove();
+return y("done");
+} else {  
+return n("problem");
+}}}}))});
+Promise.allSettled(promises).
+  then((results) => {
+  promises=undefined;
+  //debugger;
+  
+  sessionStorage.setItem('myhist', JSON.stringify([{url: location.protocol+'//'+location.host+location.pathname,astring:"Welcome Page"}]));
+  //debugger;
+	document.querySelectorAll("img").forEach((elg) => {
+		elg.addEventListener("click", function(){openModal(elg)})});
+	document.querySelectorAll("div[id^='text']").forEach( (item) => item.addEventListener('click',function(e){	
+	if ( !e.target.classList.contains("sectionRef") && !e.target.parentElement.classList.contains("sectionRef")) return; 
+	e.preventDefault();
+	//console.log("INSIDE #text click HANDLER ",this);
+
+
+	let getNextSibling = function (elem) {
+	if (elem.nodeName=="DIV") {
+	return elem //.nodeName;
+	} else 	 {				  
+	adfsadfs=getNextSibling ( (elem.previousElementSibling) ? elem.previousElementSibling : elem.parentElement) ;
+	if ( adfsadfs.nodeName == "DIV") return  adfsadfs;
+	}
+	}
+
+
+	let theurl= (e.target.nodeName.toUpperCase()=="I") ? e.target.parentElement.hash.replace(/\./g,"\\.") : e.target.hash.replace(/\./g,"\\.");
+	if (!theurl) {
+	console.log("not found: ",theurl);
+	return;
+	}
+
+	let _myParent=document.querySelector(theurl);	
+	if ( !_myParent ) {
+	console.log("Section not found in any chapter: ",e.target.hash);	
+	return;
+	}
+
+	let _parentTextDiv=	_myParent.parentElement;
+	if (!_parentTextDiv ) return;
+
+	_backLink=getNextSibling (e.target);
+
+	let _parentTreeDiv=document.querySelector("#tree"+_parentTextDiv.id.substring(4));
+	if (_parentTextDiv.style.display=="block" ){
+	_myParent.scrollIntoView();	
+	} else {		
+	document.querySelector("div[id^='tree'][style*='display: block']").style.display="none"
+	document.querySelector("div[id^='text'][style*='display: block']").style.display="none"
+	_parentTextDiv.style.display="block";
+	_parentTreeDiv.style.display="block";
+	document.querySelector(theurl).scrollIntoView();		
+	document.querySelector(".codebookheading").innerText=document.querySelector("div[id^='tree'][style^='display: block'] li").innerText;
+	}
+	document.querySelectorAll(".expanded").forEach(e=>e.classList.toggle("expanded"));  
+	document.querySelectorAll(".active").forEach(e=>e.classList.toggle("active"));  
+	let _treeClick=_parentTreeDiv.querySelector("a[href*='"+theurl+"']");
+	if (_treeClick) {
+	_liTree=$(_treeClick).parentsUntil("#myTreeView","li");
+	$(_liTree).each(   (e,v,arr)   =>  
+	{					
+	$(v.firstElementChild).click()      
+	}
+	);
+	_treeClick.click();
+	_treeClick.scrollIntoView({block: "center"});
+	}
+	let _Xdata = JSON.parse(sessionStorage.getItem('myhist'));
+	_Xdata.push({url: "#"+_backLink.id , astring: _backLink.innerText});
+	if (theurl==null) {
+	console.log("null theurl")
+	}
+	sessionStorage.setItem('myhist', JSON.stringify(_Xdata));
+	return true;
+	})) //end  click function codeblock, end  eventlistener def., end foreach definition
+
+	document.querySelectorAll("input[type='checkbox']").forEach(item => {
+	let vRelatedType  =  item.className.substring(item.className.indexOf('-')+1);
+	var myelement= item
+	$(myelement).change(function(e) {			
+	(e.target.checked) ? $("."+vRelatedType).show()  : $("."+vRelatedType).hide();
+	})
+	});
+
+
+	var modal = document.querySelector('.modal-container')
+	var closeButton = document.getElementById('close')
+	var openModal = function(elmnt) {
+	modal.querySelector("img").src=elmnt.outerHTML.match(/"(.*?)"/)[1]
+	modal.classList.add('is-open');
+	}
+
+	let closeModal = function() {
+	modal.classList.remove('is-open')
+	};
+	closeButton.addEventListener('click', closeModal)
+	var toggler = document.getElementsByClassName("expandable");
+	var i;
+	for (i = 0; i < toggler.length; i++) {
+	toggler[i].addEventListener("click", function () {					
+	let eee=this.parentElement.querySelector(".non-expandable");
+	if (eee !=null) {				
+	eee.classList.toggle("active");
+	this.classList.toggle("expanded");
+	};					
+	});
+	};
+
+
+
+	$(function () {
+	// the input field
+	var $input = $("input[type='search']"),
+	// clear button
+	$clearBtn = $("button[data-search='clear']"),
+	// prev button
+	$prevBtn = $("button[data-search='prev']"),
+	// next button
+	$nextBtn = $("button[data-search='next']"),					
+	$code = $("#chaptercontainer"), 
+	$results,
+	// the class that will be appended to the current
+	// focused element
+	currentClass = "current",
+	// top offset for the jump (the search bar)
+	offsetTop = 50,
+	// the current index of the focused element
+	currentIndex = 0,
+	gobtn=document.querySelector("button[data-search='go']");//	<button title="Go" data-search="go">Find</button>);
+
+	gobtn.addEventListener('click',function(e){
+	//if (e.key!= 'Enter') {return}; //if ( e.keyCode != 13 ) {return;}
+
+	var searchVal = document.querySelector("#searchString").value; //this.value;  					
+	$code.unmark({
+	done: function () {
+
+	ooo=document.querySelector("div[id^='text'][style*='display: block']");
+	//$code.mark(searchVal, {
+	$(ooo).mark(searchVal, {
+	separateWordSearch: false,
+	done: function () {
+	//$results = $code.find("mark");
+	$results = $(ooo).find("mark");
+	document.querySelector(".numresults").innerText="Matches: " + 	$results.length;
+	currentIndex = 0;
+	jumpTo();
+	}
+	});
+	}
+	});
+	});
+
+	function jumpTo() {
+	if ($results.length) {
+	var position,
+	$current = $results.eq(currentIndex);
+	$results.removeClass(currentClass);
+	if ($current.length) {
+	$current.addClass(currentClass);
+	var parent = $current.closest("#chaptercontainer") ;
+	if (parent.length) {
+	$('html').scrollTop(parent.offset().top - offsetTop)
+	parent.scrollTop(parent.scrollTop() - parent.offset().top + $current.offset().top);
+	}
+	else {
+	$('html').animate({
+	scrollTop: $current.offset().top - offsetTop
+	}, 300);
+	}
+
+	}
+	}
+	}
+
+	//$input.on("input", function () {
+	//$input.on("keyup", function (e) {
+
+
+	$input.on("keyup", function (e) {
+	if (e.key!= 'Enter') {return}; //if ( e.keyCode != 13 ) {return;}
+	var searchVal = document.querySelector("#searchString").value //this.value;  					
+	$code.unmark({
+	done: function () {
+
+	ooo=document.querySelector("div[id^='text'][style*='display: block']");
+	//$code.mark(searchVal, {
+	$(ooo).mark(searchVal, {
+	separateWordSearch: false,
+	done: function () {
+	//$results = $code.find("mark");
+	$results = $(ooo).find("mark");
+	document.querySelector(".numresults").innerText="Matches: " + 	$results.length;
+	currentIndex = 0;
+	jumpTo();
+	}
+	});
+	}
+	});
+	});
+	$clearBtn.on("click", function () {
+	$code.unmark();
+	$input.val("").focus();
+	//document.querySelector("div[id^='text'][style*='display: block']").scrollIntoView()
+	document.querySelector(".numresults").innerText="";
+	});
+	$nextBtn.add($prevBtn).on("click", function () {
+	if ($results.length) {
+	currentIndex += $(this).is($prevBtn) ? -1 : 1;
+	if (currentIndex < 0) {
+	currentIndex = $results.length - 1;
+	}
+	if (currentIndex > $results.length - 1) {
+	currentIndex = 0;
+	}
+	jumpTo();
+	}
+	});
+	});
+
+
+	////////////////////////////////////////////////////////////////Open code book begin
+	let vcodebook=document.querySelectorAll("a[id$='List']");
+	vcodebook.forEach(item => {
+	item.addEventListener("click", function(){
+	document.querySelector("#codesmain").style.display="none";
+	document.querySelector('#codeContentDiv').style.display="block";
+	let thename=item.id.substring(0, item.id.indexOf("List"));
+	document.querySelector("#text"+thename).style.display="block";
+	document.querySelector("#tree"+thename).style.display="block";
+	document.querySelector(".codebookheading").innerText=document.querySelector("div[id^='tree'][style^='display: block'] u").innerText;
+	document.querySelector("#text"+thename+ " h4").scrollIntoView();
+	
+	})});
+	////////////////////////////////////////////////////////////////Open code book end 
+
+
+	////////////////////////////////////////////////////////////////Back to main page begin
+	/*
+	$('.backCodes').on('click', function (e) {
+	e.stopPropagation();
+	e.preventDefault();
+	debugger;
+
+	document.querySelector('#codeContentDiv').style.display="none";
+	document.querySelector('#codesmain').style.display="block";
+	document.querySelector(".treeColumn div[style*='display: block']").style.display="none";
+	document.querySelector("#chaptercontainer div[style*='display: block']").style.display="none";
+	document.querySelector("#searchString").value="";
+	//let qq1=document.querySelectorAll(".expanded");qq1.forEach(e=>e.classList.toggle("expanded"));
+	//let qq2=document.querySelectorAll(".active");qq2.forEach(e=>e.classList.toggle("active"));
+	document.querySelectorAll(".expanded").forEach(e=>e.classList.toggle("expanded"));
+	document.querySelectorAll(".active").forEach(e=>e.classList.toggle("active"));
+	document.querySelector(".numresults").innerText="";
+	sessionStorage.setItem('myhist', JSON.stringify([{url: location.protocol+'//'+location.host+location.pathname,astring:"Welcome Page"}]));
+
+	}); //end backcodes click (go back)
+	////////////////////////////////////////////////////////////////Back to main page end
+	*/			
+
+
+	//////////////////////////////////////////////////////////////////////////////////
+	document.querySelectorAll('.backCodes').forEach( (iii)=> {   iii.addEventListener('click', function (e) {
+	e.preventDefault();
+	e.stopPropagation();
+	document.querySelector('#codeContentDiv').style.display="none";
+	document.querySelector('#codesmain').style.display="block";
+	document.querySelector(".treeColumn div[style*='display: block']").style.display="none";
+	document.querySelector("#chaptercontainer div[style*='display: block']").style.display="none";
+	document.querySelector("#searchString").value="";
+	//let qq1=document.querySelectorAll(".expanded");qq1.forEach(e=>e.classList.toggle("expanded"));
+	//let qq2=document.querySelectorAll(".active");qq2.forEach(e=>e.classList.toggle("active"));
+	document.querySelectorAll(".expanded").forEach(e=>e.classList.toggle("expanded"));
+	document.querySelectorAll(".active").forEach(e=>e.classList.toggle("active"));
+	document.querySelector(".numresults").innerText="";
+	sessionStorage.setItem('myhist', JSON.stringify([{url: location.protocol+'//'+location.host+location.pathname,astring:"Welcome Page"}]));
+
+	})}); //end backcodes click (go back)
+	/////////////////////////////////////////////////////////////////////////////////
+
+
+	/////////////////////////////  GO BACK TO LAST POINT WHERE CLICKED A LINK
+	$('.goback').on('click',function(e) {
+	e.stopPropagation();
+	e.preventDefault();
+	//console.log("INSIDE .GOBACK HANDLER, this: ",this);
+	let _Xdata=JSON.parse(sessionStorage.getItem('myhist'));			
+	if (_Xdata.length==1) { 
+		$(".treeColumn div[style*='display: block'] .backCodes").click();
+		// $('.backCodes').click();
+	return false;    
+	}
+	let _lasturl=_Xdata.pop();
+	if (_lasturl==null) {
+	console.log("null theurl")
+	}
+	sessionStorage.setItem('myhist', JSON.stringify(_Xdata));
+	thelast = document.querySelector(  (_lasturl["url"].replace(/\./g,"\\."))   );
+	_parentTextDiv=thelast.parentElement;
+	let _parentTreeDiv=document.querySelector("#tree"+_parentTextDiv.id.substring(4));
+	if (_parentTextDiv.style.display=="block" ){
+	_parentTextDiv.scrollIntoView();	
+	} else {		
+	document.querySelector("div[id^='tree'][style*='display: block']").style.display="none";
+	document.querySelector("div[id^='text'][style*='display: block']").style.display="none";
+	_parentTextDiv.style.display="block";
+	_parentTreeDiv.style.display="block";
+	thelast.scrollIntoView();		
+	document.querySelector(".codebookheading").innerText=document.querySelector("div[id^='tree'][style^='display: block'] li").innerText;
+	}
+	let _treeClick=_parentTreeDiv.querySelector("a[href*='"+thelast.id+"']");
+	if (_treeClick) {
+	_liTree=$(_treeClick).parentsUntil("#myTreeView","li");
+	$(_liTree).each(   (e,v,arr)   =>  
+	{					
+	$(v.firstElementChild).click();
+	}
+	);
+	_treeClick.click();
+	_treeClick.scrollIntoView({block: "center"});
+	}
+	}				
+	)
+	/////////////////////////////  GO BACK TO LAST POINT WHERE CLICKED A LINK
+
+
+
+
+	////////////////////////////////////////////////////////////////
+	$('#codeYear').on('change', function () {
+	if (this.value == '1') {
+	$("#codeCurrent").show();
+	$("#code2008").hide();
+	$("#code1968").hide();
+	$("#code1938").hide();
+	} else if (this.value == '2') {
+	$("#codeCurrent").hide();
+	$("#code2008").show();
+	$("#code1968").hide();
+	$("#code1938").hide();
+	} else if (this.value == '3') {
+	$("#codeCurrent").hide();
+	$("#code2008").hide();
+	$("#code1968").show();
+	$("#code1938").hide();
+	} else if (this.value == '4') {
+	$("#codeCurrent").hide();
+	$("#code2008").hide();
+	$("#code1968").hide();
+	$("#code1938").show();
+	}
+	});  //end code yr change	
+  
+  
+  
+});
+</script>
+</body>
+</html>
+
+
